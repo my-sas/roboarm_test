@@ -1,0 +1,16 @@
+<launch>
+
+	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find roboarm)/urdf/roboarm.urdf.xacro'" />
+	<param name="robot_description_semantic" textfile="$(find roboarm_moveit)/config/roboarm.srdf"/>
+
+	<rosparam file="$(find roboarm_moveit)/config/kinematics.yaml" command="load"/>
+	<rosparam file="$(find roboarm_moveit)/config/joint_limits.yaml" command="load"/>
+
+	<include file="$(find roboarm_moveit)/launch/move_group.launch" />
+
+	<include file="$(find roboarm_moveit)/launch/moveit_rviz.launch" />
+	
+	<node name="my_node" pkg="roboarm_moveit" type="script.py" respawn="false" output="screen">
+	</node>
+
+</launch>
